@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -32,14 +34,22 @@ public class Teacher {
 
 	@Column(updatable = false)
 	private LocalDateTime createdAt = LocalDateTime.now();
+	
+	
+	@OneToOne
+	@JoinColumn(name = "homeroom_class_id", referencedColumnName = "id", unique = true)
+	private Classes homeroomClass;
+
 
 	public Teacher() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public Teacher(Long id, String fullName, String email, String phone, String code, Boolean isActive,
-			LocalDateTime createdAt) {
+			LocalDateTime createdAt, Classes homeroomClass) {
 		super();
 		this.id = id;
 		this.fullName = fullName;
@@ -48,7 +58,10 @@ public class Teacher {
 		this.code = code;
 		this.isActive = isActive;
 		this.createdAt = createdAt;
+		this.homeroomClass = homeroomClass;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -106,4 +119,17 @@ public class Teacher {
 		this.code = code;
 	}
 
+
+
+	public  Classes getHomeroomClass() {
+		return homeroomClass;
+	}
+
+
+
+	public  void setHomeroomClass(Classes homeroomClass) {
+		this.homeroomClass = homeroomClass;
+	}
+     
+	
 }
